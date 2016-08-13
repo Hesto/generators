@@ -1,0 +1,49 @@
+@extends('admin.layout.layout')
+
+@section('page-header')
+    <h1>
+        {{ Lang::choice('admin/{{plural}}/default.{{plural}}', 2) }}
+        <small>Katalog</small>
+    </h1>
+@stop
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Katalog</a></li>
+        <li><a href="#">Pracownicy</a></li>
+        <li class="active">Wszyscy</li>
+    </ol>
+@stop
+
+@section('content')
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-th"></i> Pracownicy</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip">
+                    <i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip">
+                    <i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            @include('admin.{{pluralSlug}}.tables.default', ['{{pluralCamel}}' => ${{pluralCamel}}, 'buttons' => 'default', 'id' => "{{pluralSlug}}-table"])
+        </div>
+        <div class="box-footer">
+            Footer
+        </div>
+    </div>
+@stop
+
+@section('footer')
+    <script type="text/javascript">
+        var otable = $("#{{pluralSlug}}-table").DataTable({
+            "language": {
+                url: "/locale/datatables/pl.json"
+            },
+            "paging": true
+        });
+
+        applyFilter(otable, "#{{pluralSlug}}-table");
+    </script>
+@stop
