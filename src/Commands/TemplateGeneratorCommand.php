@@ -57,6 +57,11 @@ abstract class TemplateGeneratorCommand extends Command
         $this->files = $files;
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return bool|null
+     */
     public function fire()
     {
         $path = $this->getPath();
@@ -75,7 +80,13 @@ abstract class TemplateGeneratorCommand extends Command
 
         $this->info($this->type . ' template created successfully!');
     }
-    
+
+    /**
+     * Get the desired template.
+     * 
+     * @param $template
+     * @return string
+     */
     public function getTemplate($template) {
         $templatesPath = __DIR__ . '/../stubs/'. $this->parseTypeName() .'/';
 
@@ -86,6 +97,11 @@ abstract class TemplateGeneratorCommand extends Command
         return $templatesPath . $template . '.stub';
     }
 
+    /**
+     * Parse and format the type's name.
+     *
+     * @return mixed
+     */
     public function parseTypeName()
     {
         return str_plural(strtolower($this->type));

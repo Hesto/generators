@@ -51,6 +51,11 @@ class ViewMakeCommand extends Command
         $this->files = $files;
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return bool|null
+     */
     public function fire()
     {
         if(!Config::offsetExists('hesto-generators')) {
@@ -79,7 +84,7 @@ class ViewMakeCommand extends Command
     }
 
     /**
-     * Get the desired template's name from the input.
+     * Get the desired template.
      *
      * @param $template
      * @return array|string
@@ -108,7 +113,7 @@ class ViewMakeCommand extends Command
     }
 
     /**
-     * Parse the name and format according to the root namespace.
+     * Parse and format the name.
      *
      * @param $filename
      * @return string
