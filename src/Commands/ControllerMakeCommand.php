@@ -32,6 +32,6 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
      */
     public function getPath()
     {
-        return base_path() . '/app/Http/Controllers/'. $this->getNameInput() . '.php';
+        return '/app/Http/Controllers/'. $this->getNameInput() . '.php';
     }
 }
