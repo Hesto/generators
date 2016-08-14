@@ -4,6 +4,7 @@ namespace Hesto\Generators\Commands;
 
 use Hesto\Core\Commands\TemplateGeneratorCommand;
 use Illuminate\Support\Facades\Config;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 class ViewMakeCommand extends TemplateGeneratorCommand
@@ -79,6 +80,18 @@ class ViewMakeCommand extends TemplateGeneratorCommand
     public function replaceExtensions()
     {
         return 'php';
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['name', InputArgument::REQUIRED, 'The name of the class'],
+        ];
     }
 
     /**
