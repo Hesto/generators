@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0"        
+        "php": ">=5.5.0",
+        "hesto/adminlte": "dev-master"
     },    
     "autoload": {
         "classmap": [
