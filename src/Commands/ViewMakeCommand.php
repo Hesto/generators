@@ -2,21 +2,12 @@
 
 namespace Hesto\Generators\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class ViewMakeCommand extends Command
+class ViewMakeCommand extends TemplateGeneratorCommand
 {
-    /**
-     * The filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
-
     /**
      * The console command name.
      *
@@ -39,19 +30,6 @@ class ViewMakeCommand extends Command
     protected $type = 'View';
 
     /**
-     * Create a new controller creator command instance.
-     *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
-     * @return void
-     */
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct();
-
-        $this->files = $files;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return bool|null
@@ -64,23 +42,11 @@ class ViewMakeCommand extends Command
             return false;
         }
 
-        $stubs = $this->getTemplate($this->option('template'));
-
-        foreach($stubs as $stub) {
-            $path = $this->getPath($stub);
-
-            if ($this->alreadyExists($path)) {
-                $this->error($path . ' already exists!');
-
-                continue;
-            }
-
-            $this->makeDirectory($path);
-            $this->files->put($path, $this->compileViewStub($stub));
-            $this->info('View has been successfully created from stub: ' . $stub->getRelativePathname());
-        }
+        parent::fire();
 
         $this->info('Template created successfully!');
+
+        return true;
     }
 
     /**
@@ -89,14 +55,14 @@ class ViewMakeCommand extends Command
      * @param $template
      * @return array|string
      */
-    public function getTemplate($template) {
+    public function getTemplate() {
         $templatesPath = __DIR__ . '/../stubs/views/';
 
         if($this->option('custom')) {
             $templatesPath = $this->option('path');
         }
 
-        return $this->files->allFiles($templatesPath . $template . '/');
+        return $templatesPath . $this->option('template') . '/';
     }
 
     /**
@@ -105,120 +71,14 @@ class ViewMakeCommand extends Command
      * @param $file
      * @return string
      */
-    protected function getPath($file)
+    public function getPath()
     {
-        $filename = $this->parseFileName($file->getFileName());
-
-        return base_path() . '/resources/views/' . $this->option('layout') . '/'. str_slug($this->getNameInput()) . '/' . $file->getRelativePath() . '/' . $filename . '.blade.php';
+        return '/resources/views/' . $this->option('layout') . '/'. str_slug($this->getNameInput()) . '/';
     }
 
-    /**
-     * Parse and format the name.
-     *
-     * @param $filename
-     * @return string
-     */
-    protected function parseFileName($filename)
+    public function replaceExtensions()
     {
-        $filename = str_replace('.stub','',$filename);
-        $filename = str_replace('.blade','',$filename);
-
-        return $filename;
-    }
-
-    /**
-     * Determine if the class already exists.
-     *
-     * @param $path
-     * @return bool
-     */
-    protected function alreadyExists($path)
-    {
-        return $this->files->exists($path);
-    }
-
-    /**
-     * Get the desired class name from the input.
-     *
-     * @return string
-     */
-    protected function getNameInput()
-    {
-        return trim($this->argument('name'));
-    }
-
-    /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function makeDirectory($path)
-    {
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
-        }
-    }
-
-    /**
-     * Compile the view stub.
-     *
-     * @param $stubFile
-     * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    public function compileViewStub($stubFile)
-    {
-        $stub = $this->files->get($stubFile);
-        $this->replaceNames($stub);
-
-        return $stub;
-    }
-
-    /**
-     * Replace names with pattern
-     *
-     * @param $stub
-     * @return $this
-     */
-    public function replaceNames(&$stub)
-    {
-        $name = $this->getNameInput();
-
-        $plural = [
-            '{{pluralCamel}}',
-            '{{pluralSlug}}',
-            '{{pluralSnake}}',
-        ];
-
-        $singular = [
-            '{{singularCamel}}',
-            '{{singularSlug}}',
-            '{{singularSnake}}',
-        ];
-
-        $replace = [
-            camel_case($name),
-            str_slug($name),
-            snake_case($name),
-        ];
-
-        $stub = str_replace($plural, $replace, $stub);
-        $stub = str_replace($singular, $replace, $stub);
-
-        return $this;
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the class'],
-        ];
+        return 'php';
     }
 
     /**
@@ -233,6 +93,7 @@ class ViewMakeCommand extends Command
             ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', Config::get('hesto-generators.default_view_layout')],
             ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', Config::get('hesto-generators.custom_view_templates')],
             ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', Config::get('hesto-generators.custom_view_templates_path')],
+            ['force', 'f', InputOption::VALUE_NONE, 'Force override existing files'],
         ];
     }
 

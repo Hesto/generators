@@ -2,12 +2,11 @@
 
 namespace Hesto\Generators\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
+use Hesto\Adminlte\Commands\InstallCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-abstract class TemplateGeneratorCommand extends Command
+abstract class TemplateGeneratorCommand extends InstallCommand
 {
     /**
      * The filesystem instance.
@@ -45,19 +44,6 @@ abstract class TemplateGeneratorCommand extends Command
     abstract function getPath();
 
     /**
-     * Create a new controller creator command instance.
-     *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
-     * @return void
-     */
-    public function __construct(Filesystem $files)
-    {
-        parent::__construct();
-
-        $this->files = $files;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return bool|null
@@ -66,28 +52,28 @@ abstract class TemplateGeneratorCommand extends Command
     {
         $path = $this->getPath();
 
-        if ($this->alreadyExists($path)) {
-            $this->error($path . $this->getNameInput() .' already exists!');
+        if($this->files->isDirectory($this->getTemplate())) {
+            $this->installFiles($path, $this->files->allFiles($this->getTemplate()));
 
-            return false;
+            return true;
         }
 
-        $this->makeDirectory($path);
+        $template = new \SplFileInfo($this->getTemplate());
 
-        $template = $this->getTemplate($this->getTemplateInput());
+        if($this->putFile(base_path() . $path, $template)) {
+            $this->info($this->type . ' template created successfully!');
+        }
 
-        $this->files->put($path, $this->compileStub($template));
-
-        $this->info($this->type . ' template created successfully!');
+        return true;
     }
 
     /**
      * Get the desired template.
-     * 
+     *
      * @param $template
      * @return string
      */
-    public function getTemplate($template) {
+    public function getTemplate() {
         $templateDir = __DIR__ . '/../stubs/';
 
         if($this->option('custom')) {
@@ -96,7 +82,7 @@ abstract class TemplateGeneratorCommand extends Command
 
         $templatesPath = $templateDir . $this->parseTypeName() .'/';
 
-        return $templatesPath . $template . '.stub';
+        return $templatesPath . $this->getTemplateInput() . '.stub';
     }
 
     /**
@@ -120,30 +106,6 @@ abstract class TemplateGeneratorCommand extends Command
     }
 
     /**
-     * Parse the name and format according to the root namespace.
-     *
-     * @param $filename
-     * @return string
-     */
-    protected function parseFileName($filename)
-    {
-        $filename = str_replace('.stub','',$filename);
-
-        return $filename;
-    }
-
-    /**
-     * Determine if the class already exists.
-     *
-     * @param $path
-     * @return bool
-     */
-    protected function alreadyExists($path)
-    {
-        return $this->files->exists($path);
-    }
-
-    /**
      * Get the desired class name from the input.
      *
      * @return string
@@ -154,31 +116,17 @@ abstract class TemplateGeneratorCommand extends Command
     }
 
     /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function makeDirectory($path)
-    {
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
-        }
-    }
-
-    /**
-     * Compile the stub.
+     * Compile the template.
      *
      * @param $template
      * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function compileStub($template)
+    public function compile($template)
     {
-        $stub = $this->files->get($template);
-        $this->replaceNames($stub);
+        $this->replaceNames($template);
 
-        return $stub;
+        return $template;
     }
 
     /**
@@ -187,7 +135,7 @@ abstract class TemplateGeneratorCommand extends Command
      * @param $stub
      * @return $this
      */
-    public function replaceNames(&$stub)
+    public function replaceNames(&$template)
     {
         $name = $this->getNameInput();
 
@@ -209,8 +157,8 @@ abstract class TemplateGeneratorCommand extends Command
             snake_case($name),
         ];
 
-        $stub = str_replace($plural, $replace, $stub);
-        $stub = str_replace($singular, $replace, $stub);
+        $template = str_replace($plural, $replace, $template);
+        $template = str_replace($singular, $replace, $template);
 
         return $this;
     }
@@ -238,6 +186,7 @@ abstract class TemplateGeneratorCommand extends Command
             ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', 'default'],
             ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', false],
             ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', '/resources/templates/'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Force override existing files'],
         ];
     }
 

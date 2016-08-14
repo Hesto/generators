@@ -2,8 +2,6 @@
 
 namespace Hesto\Generators\Commands;
 
-use Illuminate\Support\Facades\Config;
-
 class ControllerMakeCommand extends TemplateGeneratorCommand
 {
     /**
