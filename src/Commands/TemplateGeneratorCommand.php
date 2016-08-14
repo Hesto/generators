@@ -88,11 +88,13 @@ abstract class TemplateGeneratorCommand extends Command
      * @return string
      */
     public function getTemplate($template) {
-        $templatesPath = __DIR__ . '/../stubs/'. $this->parseTypeName() .'/';
+        $templateDir = __DIR__ . '/../stubs/';
 
         if($this->option('custom')) {
-            $templatesPath = $this->option('path');
+            $templateDir = $this->option('path');
         }
+
+        $templatesPath = $templateDir . $this->parseTypeName() .'/';
 
         return $templatesPath . $template . '.stub';
     }
@@ -235,7 +237,7 @@ abstract class TemplateGeneratorCommand extends Command
         return [
             ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', 'default'],
             ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', false],
-            ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', '/resources/templates/' . $this->parseTypeName()],
+            ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', '/resources/templates/'],
         ];
     }
 
