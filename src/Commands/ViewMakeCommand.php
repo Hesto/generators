@@ -2,8 +2,8 @@
 
 namespace Hesto\Generators\Commands;
 
+use Hesto\Core\Commands\TemplateGeneratorCommand;
 use Illuminate\Support\Facades\Config;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 class ViewMakeCommand extends TemplateGeneratorCommand
