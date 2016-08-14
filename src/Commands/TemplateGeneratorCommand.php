@@ -130,7 +130,7 @@ abstract class TemplateGeneratorCommand extends InstallCommand
     }
 
     /**
-     * Replace names with pattern
+     * Replace names with pattern.
      *
      * @param $stub
      * @return $this
