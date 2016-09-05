@@ -44,7 +44,7 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
      *
      * @return array
      */
-    protected function getOptions()
+    public function getOptions()
     {
         return [
             ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', 'default'],
