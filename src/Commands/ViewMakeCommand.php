@@ -83,18 +83,6 @@ class ViewMakeCommand extends TemplateGeneratorCommand
     }
 
     /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the class'],
-        ];
-    }
-
-    /**
      * Get the console command options.
      *
      * @return array
