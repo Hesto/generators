@@ -71,7 +71,7 @@ class ViewMakeCommand extends TemplateGeneratorCommand
     /**
      * @return string
      */
-    public function getExtension()
+    public function getExtension($file)
     {
         return 'php';
     }
