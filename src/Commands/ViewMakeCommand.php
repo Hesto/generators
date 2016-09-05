@@ -68,6 +68,9 @@ class ViewMakeCommand extends TemplateGeneratorCommand
         return __DIR__ . '/../stubs/' . $this->parseTypeName() . '/';
     }
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return 'php';
