@@ -53,12 +53,19 @@ class ViewMakeCommand extends TemplateGeneratorCommand
     /**
      * Get the destination path.
      *
-     * @param $file
      * @return string
      */
     public function getPath()
     {
         return '/resources/views/' . $this->option('layout') . '/'. str_slug($this->getNameInput()) . '/';
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplatePath()
+    {
+        return __DIR__ . '/../stubs/' . $this->parseTypeName() . '/';
     }
 
     public function replaceExtensions()
