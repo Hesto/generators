@@ -2,6 +2,6 @@
 <td>{{ ${{singularCamel}}->id }}</td>
 <td>{{ ${{singularCamel}}->email }}</td>
 <td>
-    @include('admin.{{pluralSlug}}.tables.buttons.' . $buttons)
+    @include('{{layout}}.{{pluralSlug}}.tables.buttons.' . $buttons)
 </td>
 

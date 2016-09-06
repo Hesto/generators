@@ -1,13 +1,13 @@
 <div class="btn-group pull-right">
     @permission('show-{{singularSlug}}')
-    <a href="/admin/{{pluralSlug}}/{{ ${{singularCamel}}->id }}" class="btn btn-primary">Podgląd</a>
+    <a href="/{{layout}}/{{pluralSlug}}/{{ ${{singularCamel}}->id }}" class="btn btn-primary">Podgląd</a>
     @endpermission
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu">
-        <li><a href="/admin/{{pluralSlug}}/{{ ${{singularCamel}}->id }}/edit">Edytuj</a></li>
+        <li><a href="/{{layout}}/{{pluralSlug}}/{{ ${{singularCamel}}->id }}/edit">Edytuj</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#">Usuń</a></li>
     </ul>

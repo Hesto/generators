@@ -1,15 +1,15 @@
-{!! Form::model(${{singularCamel}}, array('id' => '{{pluralSlug}}-form', 'method' => 'PUT', 'route' => array('admin.{{pluralSlug}}.update', ${{singularCamel}}->id))) !!}
+{!! Form::model(${{singularCamel}}, array('id' => '{{pluralSlug}}-form', 'method' => 'PUT', 'route' => array('{{layout}}.{{pluralSlug}}.update', ${{singularCamel}}->id))) !!}
 <div class="box-body">
-    @include('admin.{{pluralSlug}}.forms.default')
+    @include('{{layout}}.{{pluralSlug}}.forms.default')
 </div>
 <div class="box-footer">
-    <a href="{{ route('admin.{{pluralSlug}}.index') }}" class="btn btn-default">
+    <a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}" class="btn btn-default">
         <i class="fa fa-reply"></i>
-        @lang('admin/global.back')
+        @lang('{{layout}}/global.back')
     </a>
     <button type="submit" class="btn btn-success pull-right">
         <i class="fa fa-edit"></i>
-        @lang('admin/global.save')
+        @lang('{{layout}}/global.save')
     </button>
 </div>
 {!! Form::close() !!}

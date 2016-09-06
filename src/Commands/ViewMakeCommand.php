@@ -57,7 +57,7 @@ class ViewMakeCommand extends TemplateGeneratorCommand
      */
     public function getPath()
     {
-        return '/resources/views/' . $this->option('layout') . '/'. str_slug($this->getNameInput()) . '/';
+        return '/resources/views/' . $this->getLayoutInput() . '/'. str_slug($this->getNameInput()) . '/';
     }
 
     /**
@@ -74,6 +74,29 @@ class ViewMakeCommand extends TemplateGeneratorCommand
     public function getExtension($file)
     {
         return 'php';
+    }
+
+    /**
+     * Compile content.
+     *
+     * @param $content
+     * @return mixed
+     */
+    protected function compile($content)
+    {
+        $content = parent::compile($content);
+
+        $content = str_replace('{{layout}}', $this->getLayoutInput(), $content);
+
+        return $content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLayoutInput()
+    {
+        return $this->option('layout');
     }
 
     /**
