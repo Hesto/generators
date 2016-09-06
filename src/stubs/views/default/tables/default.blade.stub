@@ -1,32 +1,32 @@
 <table id="{{ $id }}" class="table table-striped table-bordered table-hover" width="100%">
     <thead>
-        <tr>
-            <th>
-                <input type="checkbox" id="selectAll">
-            </th>
-            <th class="hasinput">
-                <input type="text" class="form-control" placeholder="Id" />
-            </th>
-            <th class="hasinput">
-                <div class="col-md-12">
-                    <input type="text" class="form-control col-md-12" placeholder="Email" />
-                </div>
-            </th>
-            <th>
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAll">
+                </th>
+                <th class="hasinput">
+                    {!! Form::text('id', null, ['class' => 'form-control', 'placeholder' => 'Id']) !!}
+                </th>
+                <th class="hasinput">
+                    <div class="col-md-12">
+                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+                    </div>
+                </th>
+                <th>
 
-            </th>
-        </tr>
-        <tr>
-            <th class=""></th>
-            <th class="">Id</th>
-            <th class="">Email</th>
-            <th class="col-md-2"></th>
-        </tr>
-    </thead>
+                </th>
+            </tr>
+            <tr>
+                <th class=""></th>
+                <th class="">Id</th>
+                <th class="">Name</th>
+                <th class="col-md-2"></th>
+            </tr>
+        </thead>
     <tbody>
         @foreach(${{pluralCamel}} as $index => ${{singularCamel}})
             <tr>
-                @include('admin.{{pluralCamel}}.tables.row.default', ['{{singularCamel}}' => ${{singularCamel}}])
+                @include('admin.{{pluralSlug}}.tables.row.default', ['{{singularCamel}}' => ${{singularCamel}}])
             </tr>
         @endforeach
     </tbody>

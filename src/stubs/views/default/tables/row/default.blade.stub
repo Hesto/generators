@@ -1,4 +1,4 @@
-<td><input type="checkbox" class="test" data-id="{{ ${{singularCamel}}->id }}"></td>
+<td><input type="checkbox" data-id="{{ ${{singularCamel}}->id }}"></td>
 <td>{{ ${{singularCamel}}->id }}</td>
 <td>{{ ${{singularCamel}}->email }}</td>
 <td>

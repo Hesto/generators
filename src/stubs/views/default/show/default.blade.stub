@@ -1,0 +1,34 @@
+@extends('admin.layout.layout')
+
+@section('title')
+    @lang('admin/{{pluralSlug}}/default.{{pluralSlug}}')
+@stop
+
+@section('page-header')
+    <h1>
+        @lang('admin/{{pluralSlug}}/default.{{pluralSlug}}')
+        <small> ${{singularCamel}}</small>
+    </h1>
+@stop
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> @lang('admin/global.catalogue')</a></li>
+        <li><a href="{{ route('admin.{{pluralSlug}}.index') }}">@lang('admin/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
+        <li class="active">{{ ${{singularCamel}}->name }}</li>
+    </ol>
+@stop
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            @include('admin.employees.show.tabs.default')
+        </div>
+    </div>
+@stop
+
+@section('footer')
+    <script type="text/javascript">
+
+    </script>
+@stop

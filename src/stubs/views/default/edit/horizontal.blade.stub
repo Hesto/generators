@@ -1,0 +1,48 @@
+@extends('admin.layout.layout')
+
+@section('title')
+    @lang('admin/{{pluralSlug}}/default.{{pluralSlug}}')
+@stop
+
+@section('page-header')
+    <h1>
+        @lang('admin/{{pluralSlug}}/default.{{pluralSlug}}')
+        <small> ${{singularCamel}}</small>
+    </h1>
+@stop
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> @lang('admin/global.catalogue')</a></li>
+        <li><a href="{{ route('admin.{{pluralSlug}}.index') }}">@lang('admin/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
+        <li class="active">{{ ${{singularCamel}}->name }}</li>
+    </ol>
+@stop
+
+@section('content')
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#info" data-toggle="tab">@lang('admin/global.catalogue')</a></li>
+                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="info">
+                    @include('admin.{{pluralSlug}}.edit.tabs.horizontal.info')
+                </div>
+            </div>
+        </div>
+@stop
+
+@section('footer')
+    <script type="text/javascript">
+        var otable = $("#{{pluralSlug}}-table").DataTable({
+            select: true,
+            "language": {
+                url: "/locale/datatables/pl.json"
+            },
+            "paging": true
+        });
+
+        //applyFilter(otable, "#{{pluralSlug}}-table");
+    </script>
+@stop
