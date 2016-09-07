@@ -44,7 +44,7 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
      */
     public function getTemplatePath()
     {
-        return __DIR__ . '/../stubs/' . $this->parseTypeName() . '/';
+        return __DIR__ . '/../stubs/' . $this->parseTypeName() . '/' . $this->option('template') . '.stub';
     }
 
     /**
