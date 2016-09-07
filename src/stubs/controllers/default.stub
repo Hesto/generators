@@ -16,7 +16,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function index()
     {
-        {{pluralCamel}} = {{singularClass}}::all();
+        ${{pluralCamel}} = {{singularClass}}::all();
 
         return view('admin.{{pluralSlug}}.index', compact('{{pluralCamel}}'));
     }
@@ -39,7 +39,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function store(Request $request)
     {
-        {{singularClass}}::create($request->all());
+        ${{singularClass}}::create($request->all());
 
         return redirect()->route('admin.{{pluralSlug}}.index');
     }
@@ -75,7 +75,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function update(Request $request, {{singularClass}} {{singularCamel}})
     {
-        {{singularCamel}}->update($request->all());
+        ${{singularCamel}}->update($request->all());
 
         return redirect()->route('admin.{{pluralSlug}}.index');
     }
@@ -88,7 +88,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function destroy({{singularClass}} {{singularCamel}})
     {
-        {{singularCamel}}->delete();
+        ${{singularCamel}}->delete();
 
         return redirect()->route('admin.{{pluralSlug}}.index');
     }

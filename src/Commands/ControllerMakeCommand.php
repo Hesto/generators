@@ -48,6 +48,20 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
     }
 
     /**
+     * Get the desired class name from the input.
+     *
+     * @return string
+     */
+    protected function getParsedNameInput()
+    {
+        $name = parent::getParsedNameInput();
+
+        $name = str_replace("controller", "", $name);
+
+        return $name;
+    }
+
+    /**
      * Get the console command options.
      *
      * @return array
