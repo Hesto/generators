@@ -39,7 +39,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function store(Request $request)
     {
-        ${{singularClass}}::create($request->all());
+        ${{pluralCamel}}::create($request->all());
 
         return redirect()->route('admin.{{pluralSlug}}.index');
     }
@@ -47,10 +47,10 @@ class {{singularClass}}Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param {{singularClass}} {{singularCamel}}
+     * @param {{singularClass}} ${{singularCamel}}
      * @return \Illuminate\Http\Response
      */
-    public function show({{singularClass}} {{singularCamel}})
+    public function show({{singularClass}} ${{singularCamel}})
     {
         return view('admin.{{pluralSlug}}.show.default', compact('{{singularCamel}}'));
     }
@@ -61,7 +61,7 @@ class {{singularClass}}Controller extends Controller
      * @param {{singularClass}} {{singularCamel}}
      * @return \Illuminate\Http\Response
      */
-    public function edit({{singularClass}} {{singularCamel}})
+    public function edit({{singularClass}} ${{singularCamel}})
     {
         return view('admin.{{pluralSlug}}.edit.horizontal', compact('{{singularCamel}}'));
     }
@@ -70,10 +70,10 @@ class {{singularClass}}Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param {{singularClass}} {{singularCamel}}
+     * @param {{singularClass}} ${{singularCamel}}
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{singularClass}} {{singularCamel}})
+    public function update(Request $request, {{singularClass}} ${{singularCamel}})
     {
         ${{singularCamel}}->update($request->all());
 
@@ -83,10 +83,10 @@ class {{singularClass}}Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param {{singularClass}} {{singularCamel}}
+     * @param {{singularClass}} ${{singularCamel}}
      * @return \Illuminate\Http\Response
      */
-    public function destroy({{singularClass}} {{singularCamel}})
+    public function destroy({{singularClass}} ${{singularCamel}})
     {
         ${{singularCamel}}->delete();
 
