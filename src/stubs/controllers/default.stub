@@ -39,7 +39,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function store(Request $request)
     {
-        ${{pluralCamel}}::create($request->all());
+        {{singularClass}}::create($request->all());
 
         return redirect()->route('admin.{{pluralSlug}}.index');
     }
