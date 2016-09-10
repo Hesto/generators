@@ -34,28 +34,10 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
     {
         parent::fire();
 
-        $this->installRoute();
-    }
-
-    /**
-     * Install Routes.
-     *
-     * @return bool
-     */
-    public function installRoute()
-    {
-        $path = base_path() . '/routes/' . $this->getLayoutInput() . '.php';
-        $stub = __DIR__ . '/../stubs/routes/controller-routes.stub';
-
-        if( ! $this->contentExists($path, $stub)) {
-            $file = new SplFileInfo($stub);
-            $this->appendFile($path, $file);
-
-            return true;
-        }
-
-        return false;
-
+        $this->call('make:route:controller', [
+            'name' => $this->getParsedNameInput(),
+            '--force' => true
+        ]);
     }
 
     /**
