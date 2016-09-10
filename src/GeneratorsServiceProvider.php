@@ -27,6 +27,7 @@ class GeneratorsServiceProvider extends ServiceProvider
     {
         $this->registerViewGenerator();
         $this->registerControllerGenerator();
+        $this->registerControllerRouteGenerator();
     }
 
     /**
@@ -34,11 +35,11 @@ class GeneratorsServiceProvider extends ServiceProvider
      */
     private function registerViewGenerator()
     {
-        $this->app->singleton('command.hesto.view', function ($app) {
+        $this->app->singleton('command.hesto.generators.view', function ($app) {
             return $app['Hesto\Generators\Commands\ViewMakeCommand'];
         });
 
-        $this->commands('command.hesto.view');
+        $this->commands('command.hesto.generators.view');
     }
 
     /**
@@ -46,10 +47,19 @@ class GeneratorsServiceProvider extends ServiceProvider
      */
     private function registerControllerGenerator()
     {
-        $this->app->singleton('command.hesto.controller', function ($app) {
+        $this->app->singleton('command.hesto.generators.controller', function ($app) {
             return $app['Hesto\Generators\Commands\ControllerMakeCommand'];
         });
 
-        $this->commands('command.hesto.controller');
+        $this->commands('command.hesto.generators.controller');
+    }
+
+    private function registerControllerRouteGenerator()
+    {
+        $this->app->singleton('command.hesto.generators.controller-route', function ($app) {
+            return $app['Hesto\Generators\Commands\ControllerRouteMakeCommand'];
+        });
+
+        $this->commands('command.hesto.generators.controller-route');
     }
 }

@@ -18,7 +18,7 @@ class {{singularClass}}Controller extends Controller
     {
         ${{pluralCamel}} = {{singularClass}}::all();
 
-        return view('admin.{{pluralSlug}}.index', compact('{{pluralCamel}}'));
+        return view('{{layout}}{{pluralSlug}}.index', compact('{{pluralCamel}}'));
     }
 
     /**
@@ -28,7 +28,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function create()
     {
-        return view('admin.{{pluralSlug}}.create');
+        return view('{{layout}}{{pluralSlug}}.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class {{singularClass}}Controller extends Controller
     {
         {{singularClass}}::create($request->all());
 
-        return redirect()->route('admin.{{pluralSlug}}.index');
+        return redirect()->route('{{layout}}{{pluralSlug}}.index');
     }
 
     /**
@@ -52,7 +52,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function show({{singularClass}} ${{singularCamel}})
     {
-        return view('admin.{{pluralSlug}}.show.default', compact('{{singularCamel}}'));
+        return view('{{layout}}{{pluralSlug}}.show.default', compact('{{singularCamel}}'));
     }
 
     /**
@@ -63,7 +63,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function edit({{singularClass}} ${{singularCamel}})
     {
-        return view('admin.{{pluralSlug}}.edit.horizontal', compact('{{singularCamel}}'));
+        return view('{{layout}}{{pluralSlug}}.edit.horizontal', compact('{{singularCamel}}'));
     }
 
     /**
@@ -77,7 +77,7 @@ class {{singularClass}}Controller extends Controller
     {
         ${{singularCamel}}->update($request->all());
 
-        return redirect()->route('admin.{{pluralSlug}}.index');
+        return redirect()->route('{{layout}}{{pluralSlug}}.index');
     }
 
     /**
@@ -90,6 +90,6 @@ class {{singularClass}}Controller extends Controller
     {
         ${{singularCamel}}->delete();
 
-        return redirect()->route('admin.{{pluralSlug}}.index');
+        return redirect()->route('{{layout}}{{pluralSlug}}.index');
     }
 }

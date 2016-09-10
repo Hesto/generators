@@ -22,7 +22,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            @include('{{layout}}.employees.show.tabs.default')
+            @include('{{layout}}.{{pluralSlug}}.show.tabs.default')
         </div>
     </div>
 @stop

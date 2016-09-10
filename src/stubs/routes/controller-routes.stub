@@ -1,0 +1,4 @@
+
+Route::resource('{{pluralSlug}}', '{{singularClass}}Controller');
+
+

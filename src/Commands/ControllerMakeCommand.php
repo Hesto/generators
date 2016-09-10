@@ -29,6 +29,35 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
      */
     protected $type = 'Controller';
 
+
+    public function fire()
+    {
+        parent::fire();
+
+        $this->installRoute();
+    }
+
+    /**
+     * Install Routes.
+     *
+     * @return bool
+     */
+    public function installRoute()
+    {
+        $path = base_path() . '/routes/' . $this->getLayoutInput() . '.php';
+        $stub = __DIR__ . '/../stubs/routes/controller-routes.stub';
+
+        if( ! $this->contentExists($path, $stub)) {
+            $file = new SplFileInfo($stub);
+            $this->appendFile($path, $file);
+
+            return true;
+        }
+
+        return false;
+
+    }
+
     /**
      * Get the destination path.
      *
@@ -55,6 +84,31 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
     protected function getParsedNameInput()
     {
         return str_replace("controller", "", parent::getParsedNameInput());
+    }
+
+    /**
+     * Compile content.
+     *
+     * @param $content
+     * @return mixed
+     */
+    protected function compile($content)
+    {
+        $content = parent::compile($content);
+
+        if($this->getLayoutInput() != null) {
+            $content = str_replace('{{layout}}', $this->getLayoutInput() . '.', $content);
+        }
+
+        return $content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLayoutInput()
+    {
+        return $this->option('layout');
     }
 
     /**

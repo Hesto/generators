@@ -14,7 +14,7 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> @lang('{{layout}}/global.catalogue')</a></li>
-        <li><a href="{{ route('{{layout}}.employees.index') }}">@lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
+        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">@lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
         <li class="active">@lang('{{layout}}/global.everybody')</li>
     </ol>
 @stop
