@@ -5,6 +5,7 @@ namespace Hesto\Generators\Commands;
 use Hesto\Core\Commands\InstallAndReplaceCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use SplFileInfo;
 
 class ControllerRouteMakeCommand extends InstallAndReplaceCommand
 {
