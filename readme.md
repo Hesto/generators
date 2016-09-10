@@ -1,7 +1,10 @@
 # Hesto Generators
 
 - `make:view`
+- `make:view:tab`
+- `make:view:lang`
 - `make:controller:template`
+- `make:route:controller`
 
 ## Usage
 
@@ -32,4 +35,4 @@ Just use
 php artisan vendor:publish
 ```
 
-and a hesto-generators.php file will be created in your app/config directory.
+and a hesto/generators.php file will be created in your app/config directory.
