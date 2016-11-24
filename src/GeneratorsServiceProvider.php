@@ -29,6 +29,7 @@ class GeneratorsServiceProvider extends ServiceProvider
         $this->registerControllerGenerator();
         $this->registerControllerRouteGenerator();
         $this->registerTabTableGenerator();
+        $this->registerViewFixCommand();
     }
 
     /**
@@ -71,5 +72,14 @@ class GeneratorsServiceProvider extends ServiceProvider
         });
 
         $this->commands('command.hesto.generators.tab-table');
+    }
+
+    private function registerViewFixCommand()
+    {
+        $this->app->singleton('command.hesto.generators.view-fix', function ($app) {
+            return $app['Hesto\Generators\Commands\ViewFixCommand'];
+        });
+
+        $this->commands('command.hesto.generators.view-fix');
     }
 }
