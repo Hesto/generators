@@ -1,20 +1,20 @@
 @extends('{{layout}}.layout.layout')
 
 @section('title')
-    @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')
+    {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
 @stop
 
 @section('page-header')
     <h1>
-        @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')
+        {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
         <small> {{ ${{singularCamel}}->name }}</small>
     </h1>
 @stop
 
 @section('breadcrumbs')
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> @lang('{{layout}}/global.catalogue')</a></li>
-        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">@lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{ ucfirst(trans('{{layout}}/global.catalogue')) }}</a></li>
+        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">{{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}</a></li>
         <li class="active">{{ ${{singularCamel}}->name }}</li>
     </ol>
 @stop
@@ -22,29 +22,18 @@
 @section('content')
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#info" data-toggle="tab">@lang('{{layout}}/global.catalogue')</a></li>
-                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                @include('{{layout}}.{{pluralSlug}}.edit.tabs.horizontal.tab-nav')
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="info">
-                    @include('{{layout}}.{{pluralSlug}}.edit.tabs.horizontal.info')
-                </div>
+                 @include('{{layout}}.{{pluralSlug}}.edit.tabs.horizontal.tab-content')
             </div>
         </div>
 @stop
 
 @section('footer')
     <script type="text/javascript">
-        var locale = '{{App::getLocale()}}';
-
-        var otable = $("#{{pluralSlug}}-table").DataTable({
-            select: true,
-            "language": {
-                url: "/locale/datatables/" + locale + ".json"
-            },
-            "paging": true
+        $( document ).ready(function() {
+            var locale = '{{ App::getLocale() }}';
         });
-
-        //applyFilter(otable, "#{{pluralSlug}}-table");
     </script>
 @stop

@@ -1,7 +1,6 @@
 <table id="{{ $id }}" class="table table-striped table-bordered table-hover" width="100%">
     <thead>
         <tr>
-            <th class=""></th>
             @include('{{layout}}.{{pluralSlug}}.tables.header.default')
             <th class="col-md-2"></th>
         </tr>
@@ -9,10 +8,6 @@
     <tbody>
         @foreach(${{pluralCamel}} as $index => ${{singularCamel}})
             <tr>
-                <td>
-                    <input type="checkbox" data-id="{{ ${{singularCamel}}->id }}">
-                </td>
-
                 @include('{{layout}}.{{pluralSlug}}.tables.row.default', ['{{singularCamel}}' => ${{singularCamel}}])
 
                 <td>

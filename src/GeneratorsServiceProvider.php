@@ -28,6 +28,7 @@ class GeneratorsServiceProvider extends ServiceProvider
         $this->registerViewGenerator();
         $this->registerControllerGenerator();
         $this->registerControllerRouteGenerator();
+        $this->registerTabTableGenerator();
     }
 
     /**
@@ -61,5 +62,14 @@ class GeneratorsServiceProvider extends ServiceProvider
         });
 
         $this->commands('command.hesto.generators.controller-route');
+    }
+
+    private function registerTabTableGenerator()
+    {
+        $this->app->singleton('command.hesto.generators.tab-table', function ($app) {
+            return $app['Hesto\Generators\Commands\TabTableMakeCommand'];
+        });
+
+        $this->commands('command.hesto.generators.tab-table');
     }
 }

@@ -3,6 +3,7 @@
 namespace Hesto\Generators\Commands;
 
 use Hesto\Core\Commands\TemplateGeneratorCommand;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -47,7 +48,7 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
      */
     public function getPath()
     {
-        return '/app/Http/Controllers/'. $this->getNameInput() . '.php';
+        return '/app/Http/Controllers/'. ucfirst(camel_case($this->getNameInput())) . '.php';
     }
 
     /**
@@ -55,7 +56,11 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
      */
     public function getTemplatePath()
     {
-        return __DIR__ . '/../stubs/' . $this->parseTypeName() . '/' . $this->option('template') . '.stub';
+        if($this->option('custom')) {
+            return $this->option('path') . $this->option('template') . '.stub';
+        }
+
+        return __DIR__ . '/../stubs/controllers/' . $this->option('template') . '.stub';
     }
 
     /**
@@ -101,10 +106,10 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
     public function getOptions()
     {
         return [
-            ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', 'default'],
-            ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', 'admin'],
-            ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', false],
-            ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', '/resources/templates/'],
+            ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', Config::get('hesto.generators.default_controller_template')],
+            ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', Config::get('hesto.generators.default_layout')],
+            ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', Config::get('hesto.generators.custom_controller_templates')],
+            ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', Config::get('hesto.generators.custom_controller_templates_path')],
             ['force', 'f', InputOption::VALUE_NONE, 'Force override existing files'],
         ];
     }

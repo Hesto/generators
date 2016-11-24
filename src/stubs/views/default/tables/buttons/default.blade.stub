@@ -9,6 +9,17 @@
     <ul class="dropdown-menu">
         <li><a href="/{{layout}}/{{pluralSlug}}/{{ ${{singularCamel}}->id }}/edit">Edytuj</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="#">Usuń</a></li>
+        <li>
+            <a href="#"
+               onclick="event.preventDefault();
+                     document.getElementById('delete-form-{{ ${{singularCamel}}->id }}').submit();">
+                Usuń
+            </a>
+
+            <form id="delete-form-{{ ${{singularCamel}}->id }}" action="{{ route('{{layout}}.{{pluralSlug}}.destroy', ${{singularCamel}}->id) }}" method="POST" style="display: none;">
+                {{ Form::hidden('_method', 'DELETE') }}
+                {{ csrf_field() }}
+            </form>
+        </li>
     </ul>
 </div>

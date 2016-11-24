@@ -1,20 +1,20 @@
 @extends('{{layout}}.layout.layout')
 
 @section('title')
-    @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')
+    {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
 @stop
 
 @section('page-header')
     <h1>
-        @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')
+        {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
         <small> {{ ${{singularCamel}}->name }}</small>
     </h1>
 @stop
 
 @section('breadcrumbs')
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> @lang('{{layout}}/global.catalogue')</a></li>
-        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">@lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{ ucfirst(trans('{{layout}}/global.catalogue')) }}</a></li>
+        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">{{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}</a></li>
         <li class="active">{{ ${{singularCamel}}->name }}</li>
     </ol>
 @stop

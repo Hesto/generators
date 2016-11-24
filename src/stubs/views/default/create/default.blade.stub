@@ -1,0 +1,56 @@
+@extends('{{layout}}.layout.layout')
+
+@section('title')
+    {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
+@stop
+
+@section('page-header')
+    <h1>
+        {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
+        <small> {{ ucfirst(trans('{{layout}}/global.new')) }}</small>
+    </h1>
+@stop
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{ ucfirst(trans('{{layout}}/global.catalogue')) }}</a></li>
+        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">{{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}</a></li>
+        <li class="active">{{ ucfirst(trans('{{layout}}/global.new')) }}</li>
+    </ol>
+@stop
+
+@section('content')
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#info" data-toggle="tab">{{ ucfirst(trans('{{layout}}/global.catalogue')) }}</a></li>
+            <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="info">
+                {!! Form::model(${{singularCamel}} = new \App\{{singularClass}},array('route' => array('{{layout}}.{{pluralCamel}}.store'))) !!}
+                <div class="box-body">
+                    @include('{{layout}}.{{pluralSlug}}.forms.default')
+                </div>
+                <div class="box-footer">
+                    <a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}" class="btn btn-default">
+                        <i class="fa fa-reply"></i>
+                        @lang('{{layout}}/global.back')
+                    </a>
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="fa fa-edit"></i>
+                        @lang('{{layout}}/global.save')
+                    </button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+@stop
+
+@section('footer')
+    <script type="text/javascript">
+        $( document ).ready(function() {
+
+        });
+    </script>
+@stop

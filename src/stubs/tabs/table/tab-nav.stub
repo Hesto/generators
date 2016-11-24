@@ -1,0 +1,10 @@
+
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a data-toggle="tab" href="#tab-{{pluralSlug}}-detach">{{ ucfirst(trans('{{layout}}/global.show')) }}</a></li>
+        <li><a data-toggle="tab" href="#tab-{{pluralSlug}}-attach">{{ ucfirst(trans('{{layout}}/global.add')) }}</a></li>
+    </ul>
+</li>

@@ -1,53 +1,65 @@
 @extends('{{layout}}.layout.layout')
 
 @section('title')
-    @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')
+    {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
 @stop
 
 @section('page-header')
     <h1>
-        @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')
+        {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}
         <small> @lang('{{layout}}/global.catalogue')</small>
     </h1>
 @stop
 
 @section('breadcrumbs')
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> @lang('{{layout}}/global.catalogue')</a></li>
-        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">@lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')</a></li>
-        <li class="active">@lang('{{layout}}/global.everybody')</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> {{ ucfirst(trans('{{layout}}/global.catalogue')) }}</a></li>
+        <li><a href="{{ route('{{layout}}.{{pluralSlug}}.index') }}">{{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}</a></li>
+        <li class="active">{{ ucfirst(trans('{{layout}}/global.everybody')) }}</li>
     </ol>
 @stop
 
 @section('content')
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-th"></i> @lang('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')</h3>
+            <h3 class="box-title"><i class="fa fa-th"></i> {{ ucfirst(trans('{{layout}}/{{pluralSlug}}/default.{{pluralSlug}}')) }}</h3>
             <div class="box-tools pull-right">
+                <a href="{{ route('{{layout}}.{{pluralSlug}}.create') }}" class="btn btn-box-tool">
+                    <i class="fa fa-plus"></i>
+                </a>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip">
-                    <i class="fa fa-minus"></i></button>
+                    <i class="fa fa-minus"></i>
+                </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip">
-                    <i class="fa fa-times"></i></button>
+                    <i class="fa fa-times"></i>
+                </button>
             </div>
         </div>
         <div class="box-body">
             @include('{{layout}}.{{pluralSlug}}.tables.default', ['{{pluralCamel}}' => ${{pluralCamel}}, 'buttons' => 'default', 'id' => "{{pluralSlug}}-table"])
         </div>
         <div class="box-footer">
-            Footer
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Operacje grupowe <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Usuń zaznaczone</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Zaznacz wszystkie</a></li>
+                    <li><a href="#">Odznacz wszystkie</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 @stop
 
 @section('footer')
     <script type="text/javascript">
-        var otable = $("#{{pluralSlug}}-table").DataTable({
-            "language": {
-                url: "/locale/datatables/pl.json"
-            },
-            "paging": true
-        });
+        $( document ).ready(function() {
+            var locale = '{{ App::getLocale() }}';
 
-        //+applyFilter(otable, "#{{pluralSlug}}-table");
+            @include('datatables.js.table', ['id' => '{{pluralSlug}}-table', 'var' => '{{pluralSnake}}_table'])
+        });
     </script>
 @stop

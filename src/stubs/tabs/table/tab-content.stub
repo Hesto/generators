@@ -1,0 +1,7 @@
+
+<div class="tab-pane" id="tab-{{pluralSlug}}-detach">
+    @include('admin.{{resourcePluralSlug}}.edit.tabs.horizontal.{{pluralSlug}}-detach')
+</div>
+<div class="tab-pane" id="tab-{{pluralSlug}}-attach">
+    @include('admin.{{resourcePluralSlug}}.edit.tabs.horizontal.{{pluralSlug}}-attach')
+</div>

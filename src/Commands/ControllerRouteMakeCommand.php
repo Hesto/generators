@@ -3,6 +3,7 @@
 namespace Hesto\Generators\Commands;
 
 use Hesto\Core\Commands\InstallAndReplaceCommand;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use SplFileInfo;
@@ -36,7 +37,7 @@ class ControllerRouteMakeCommand extends InstallAndReplaceCommand
      */
     public function installRoute()
     {
-        $path = base_path() . '/routes/' . $this->getLayoutInput() . '.php';
+        $path = base_path() . '/routes/' . $this->getGuardInput() . '.php';
         $stub = __DIR__ . '/../stubs/routes/controller-routes.stub';
 
         if( ! $this->contentExists($path, $stub)) {
@@ -53,9 +54,9 @@ class ControllerRouteMakeCommand extends InstallAndReplaceCommand
     /**
      * @return mixed
      */
-    public function getLayoutInput()
+    public function getGuardInput()
     {
-        return $this->option('layout');
+        return $this->option('guard');
     }
 
     /**
@@ -66,7 +67,7 @@ class ControllerRouteMakeCommand extends InstallAndReplaceCommand
     public function getOptions()
     {
         return [
-            ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', 'admin'],
+            ['guard', 'l', InputOption::VALUE_OPTIONAL, 'To which guard generate the template?', Config::get('hesto.generators.default_controller_guard')],
             ['force', 'f', InputOption::VALUE_NONE, 'Force override existing files'],
         ];
     }

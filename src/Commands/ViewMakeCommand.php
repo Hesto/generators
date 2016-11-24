@@ -108,7 +108,7 @@ class ViewMakeCommand extends TemplateGeneratorCommand
     {
         return [
             ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', Config::get('hesto.generators.default_view_template')],
-            ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', Config::get('hesto.generators.default_view_layout')],
+            ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', Config::get('hesto.generators.default_layout')],
             ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', Config::get('hesto.generators.custom_view_templates')],
             ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', Config::get('hesto.generators.custom_view_templates_path')],
             ['force', 'f', InputOption::VALUE_NONE, 'Force override existing files'],

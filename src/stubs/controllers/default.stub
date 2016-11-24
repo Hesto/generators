@@ -28,7 +28,7 @@ class {{singularClass}}Controller extends Controller
      */
     public function create()
     {
-        return view('{{layout}}{{pluralSlug}}.create');
+        return view('{{layout}}{{pluralSlug}}.create.default');
     }
 
     /**

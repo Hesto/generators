@@ -1,7 +1,3 @@
-<td><input type="checkbox" data-id="{{ ${{singularCamel}}->id }}"></td>
 <td>{{ ${{singularCamel}}->id }}</td>
-<td>{{ ${{singularCamel}}->email }}</td>
-<td>
-    @include('{{layout}}.{{pluralSlug}}.tables.buttons.' . $buttons)
-</td>
+<td>{{ ${{singularCamel}}->name }}</td>
 
