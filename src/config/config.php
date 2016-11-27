@@ -93,6 +93,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Turn on custom templates for views
+    |--------------------------------------------------------------------------
+    |
+    | Turning on custom templates stored locally in project.
+    | the role if it is in a different namespace.
+    |
+    */
+    'controller_namespace' => '',
+
+    /*
+    |--------------------------------------------------------------------------
     | Custom templates path
     |--------------------------------------------------------------------------
     |

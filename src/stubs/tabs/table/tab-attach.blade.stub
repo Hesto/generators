@@ -1,1 +1,5 @@
 @include('{{layout}}.{{pluralSlug}}.tables.no-checkbox', ['{{pluralCamel}}' => \App\{{singularClass}}::all()->diff(${{resourceSingularCamel}}->{{pluralCamel}}), 'buttons' => 'attach', 'id' => "{{pluralSlug}}-table-attach"])
+
+@push('datatables')
+    @include('datatables.js.table', ['id' => '{{pluralSlug}}-table-attach', 'var' => '{{pluralSnake}}_table'])
+@endpush

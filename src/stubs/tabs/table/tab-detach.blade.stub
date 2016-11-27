@@ -1,1 +1,5 @@
 @include('{{layout}}.{{pluralSlug}}.tables.no-checkbox', ['{{pluralCamel}}' => ${{resourceSingularCamel}}->{{pluralCamel}}, 'buttons' => 'detach', 'id' => "{{pluralSlug}}-table-detach"])
+
+@push('datatables')
+    @include('datatables.js.table', ['id' => '{{pluralSlug}}-table-detach', 'var' => '{{pluralSnake}}_table'])
+@endpush

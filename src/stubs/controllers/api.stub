@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\{{singularClass}};
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
+class {{singularClass}}Controller extends ApiController
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        ${{pluralCamel}} = {{singularClass}}::all();
+
+        return view('{{layout}}{{pluralSlug}}.index', compact('{{pluralCamel}}'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('{{layout}}{{pluralSlug}}.create.default');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        {{singularClass}}::create($request->all());
+
+        return redirect()->route('{{layout}}{{pluralSlug}}.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param {{singularClass}} ${{singularCamel}}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{singularClass}} ${{singularCamel}})
+    {
+        return view('{{layout}}{{pluralSlug}}.show.default', compact('{{singularCamel}}'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param {{singularClass}} ${{singularCamel}}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{singularClass}} ${{singularCamel}})
+    {
+        return view('{{layout}}{{pluralSlug}}.edit.horizontal', compact('{{singularCamel}}'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param {{singularClass}} ${{singularCamel}}
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, {{singularClass}} ${{singularCamel}})
+    {
+        ${{singularCamel}}->update($request->all());
+
+        return redirect()->route('{{layout}}{{pluralSlug}}.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param {{singularClass}} ${{singularCamel}}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy({{singularClass}} ${{singularCamel}})
+    {
+        ${{singularCamel}}->delete();
+
+        return redirect()->route('{{layout}}{{pluralSlug}}.index');
+    }
+}
