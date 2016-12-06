@@ -108,7 +108,7 @@ class ControllerMakeCommand extends TemplateGeneratorCommand
         return [
             ['template', 't', InputOption::VALUE_OPTIONAL, 'The template to generate', Config::get('hesto.generators.default_controller_template')],
             ['layout', 'l', InputOption::VALUE_OPTIONAL, 'To which layout generate the template?', Config::get('hesto.generators.default_layout')],
-            ['namespace', 'n', InputOption::VALUE_OPTIONAL, 'Controller Namespace', Config::get('hesto.generators.controller_namespace')],
+            ['namespace', null, InputOption::VALUE_OPTIONAL, 'Controller Namespace', Config::get('hesto.generators.controller_namespace')],
             ['custom', 'c', InputOption::VALUE_OPTIONAL, 'Use custom templates instead of given ones', Config::get('hesto.generators.custom_controller_templates')],
             ['path', 'p', InputOption::VALUE_OPTIONAL, 'Local path for template stubs', Config::get('hesto.generators.custom_controller_templates_path')],
             ['force', 'f', InputOption::VALUE_NONE, 'Force override existing files'],
